@@ -1,0 +1,155 @@
+解放程序员 
+程序员只需专注于业务代码
+什么http request response requestbody
+什么异常处理
+什么数据库
+都封装好了 不用浪费时间
+
+
+下载　pscp -r root@103.80.25.33:/usr/tomcat/webapps/zmkm/bud c:\bud
+
+pscp -r -P 22 -l root -pw AaA13751730078 -2 -4 -v C:\Users\wuhuadong\Workspaces\MyEclipse 10\zmkm\target\ 103.80.25.33:/usr/tomcat/webapps/
+
+java -cp /mnt/share/nso-cmcc/lib/nso*.jar com.ericsson.nso.cmcc.query.sftpclient.SFTPChannelImp
+
+java -cp nso-cmcc/lib/h2*.jar org.h2.tools.Server	
+mv    /usr/lib/*    /zone  
+是将 /usr/lib/下所有的东西移到/zone/中。 
+mv /usr/tomcat/webapps/zmkm/bud /usr/tomcat/webapps/
+
+	server {
+		listen       80;
+		server_name  www.szbud.cn;
+		location / {
+			proxy_pass http://tomcats/bud/index.html;
+		}
+		#所有js,css相关的静态资源文件的请求由Nginx处理
+		location ~.*\.(js|css)$ {
+			root    /usr/tomcat/webapps; #指定文件路径
+			expires     12h; #过期时间为12小时
+		}
+		#所有图片等多媒体相关静态资源文件的请求由Nginx处理
+		location ~.*\.(html|jpg|jpeg|png|bmp|gif|ico|mp3|mid|wma|mp4|swf|flv|rar|zip|txt|doc|ppt|xls|pdf)$ {
+			root    /usr/tomcat/webapps; #指定文件路径
+			expires     7d; #过期时间为7天
+		}    
+		error_page   500 502 503 504  /50x.html;
+		location = /50x.html {
+		    root   html;
+		}
+	}
+
+
+
+
+资料摘录 记录 http://tieba.baidu.com/p/4393115115
+
+c盘myslq目录下 
+mysqlbinlog c:/log/binlog.000001
+拷贝回来看也是行的
+
+1查看是否启用了日志
+mysql>show variables like 'log_bin';
+2查看当前的日志
+3mysql> show master status;
+看二进制日志文件用mysqlbinlog
+shell>mysqlbinlog mail-bin.000001
+
+　1、Mysql配置实现开启二进制文件
+　　打开my.ini文件，再里面添加：
+　　log-bin=c:/log/logbin.log
+	log-bin = "C:/log/binlog.log"
+	binlog_do_db=zmkm
+	expire_logs_days = 7
+	max_binlog_size = 100M
+	命令行查看  mysqlbinlog c:/log/binlog.000001（不推荐）windowsserver2012需要进入mysqlbin目录下 
+　　2、数据恢复操作。
+　　（1）修改my.ini文件，注释掉下面第二行，否则会出现编码问题。
+
+　　[client]
+　　default-character-set=GBK
+　　（2）查看二进制日志文件，导出文本格式，命令如下：
+　　mysqlbinlog c:\log\binlog.000001 > c:\log\binlog000001.txt
+　　上面命令的含义是导出二进制日志文件logbin.000001 到d盘下的c:\log\logbin000001.txt文件。
+　　（3）重新执行日志文件中的命令（回滚操作），命令如下：(回滚你麻痹  其实就是执行选中行的sql而已)
+　　mysqlbinlog c:\binlog.000001 --start-pos=1261 --stop-pos=2109 | mysql -u root -p zmkm
+　　上边命令表示从logbin.000020日志文件的8271行开始执行到5073503行进行命令回滚（重新执行）。其中数据库的用户名为root,密码为123
+worker_processes  1;
+
+events {
+    worker_connections  1024;
+}
+http{
+	server {
+	     
+	    listen       80;
+	    server_name  qiumaomao.cc www.qiumaomao.cc;
+
+
+	    #charset koi8-r;  
+	  
+	    
+	    #location / {
+	    #    root   /usr/share/nginx/html;
+	    #    index  index.html index.htm;
+	    #}
+	   
+	    #新增配置默认将请求转发到tomcats.conf配置的upstream进行处理
+	    location / {
+		 proxy_set_header Host $host;
+		 proxy_set_header X-Real-IP $remote_addr;
+		 proxy_set_header REMOTE-HOST $remote_addr;
+		 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		 proxy_pass http://tomcats; #与tomcats.conf里配置的upstream同名
+	    }
+	    
+	    #所有js,css相关的静态资源文件的请求由Nginx处理
+	    location ~.*\.(js|css)$ {
+		root    /usr/tomcat/webapps; #指定文件路径
+		expires     12h; #过期时间为12小时
+	    }
+	    #所有图片等多媒体相关静态资源文件的请求由Nginx处理
+	    location ~.*\.(html|jpg|jpeg|png|bmp|gif|ico|mp3|mid|wma|mp4|swf|flv|rar|zip|txt|doc|ppt|xls|pdf)$ {
+		root    /usr/tomcat/webapps; #指定文件路径
+		expires     7d; #过期时间为7天
+	    }    
+
+	    #error_page  404              /404.html;
+
+	    # redirect server error pages to the static page /50x.html
+	    #
+	    error_page   500 502 503 504  /50x.html;
+	    location = /50x.html {
+		root   /usr/share/nginx/html;
+	    }
+
+	    # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+	    #
+	    #location ~ \.php$ {
+	    #    proxy_pass   http://127.0.0.1;
+	    #}
+
+	    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+	    #
+	    #location ~ \.php$ {
+	    #    root           html;
+	    #    fastcgi_pass   127.0.0.1:9000;
+	    #    fastcgi_index  index.php;
+	    #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+	    #    include        fastcgi_params;
+	    #}
+
+	    # deny access to .htaccess files, if Apache's document root
+	    # concurs with nginx's one
+	    #
+	    #location ~ /\.ht {
+	    #    deny  all;
+	    #}
+	}
+}
+tomcats.conf
+upstream tomcats {
+     ip_hash;
+     server 103.80.25.33:8080;
+     #server 10.135.181.212:8080;
+  }

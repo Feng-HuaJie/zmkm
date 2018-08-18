@@ -1,0 +1,344 @@
+/*全局样式*/
+a {
+    text-decoration: none !important;
+}
+ul {
+    padding: 0;
+    margin: 0;
+}
+/*h3样式 标题样式*/
+h3 {
+	padding:20px 0 40px 0;
+	height:26px;
+	margin:0;
+}
+body {
+  font-family: 'Source Sans Pro', '微软雅黑', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin:0px;height:100%;width:100%;
+}
+.float-left{
+	float:left;
+}
+.float-right{
+	float:right;
+}
+/*头部head样式*/
+.head{
+	width:100%;height:50px;position: fixed;  
+	background: #00ACD6;z-index:9999;
+}
+.headerleft {
+	float: left;
+	height: 50px;
+	width: 230px;
+	text-align: center;
+}
+.headerleft span {
+	color: white;
+	line-height: 50px;
+	font-size: larger;
+}
+.headerright {
+	float: right;
+}
+.headerright ul {
+	height:50px;
+	margin:0;
+	padding:0;
+}
+.headerright ul li {
+    display: inline-block;
+    float: right;
+    padding: 0 12px;
+    height: 50px;
+    line-height: 50px;
+	text-align:center;
+}
+.headerright ul li a {
+    color: white;
+    display: block;
+}
+.headerright ul li:hover{
+	background: #367fa9;
+}
+/*左侧菜单样式*/
+.left{
+	overflow-y: scroll;
+	width: 240px; height: 100%;background-color:#222d32;
+	position: fixed;    top: 50px;
+}
+/*扩展font-awesome中fa样式*/
+.fa{
+	padding-right: 8px;
+}
+/*扩展font-awesome中pull-right样式*/
+.pull-right {
+    margin: 0 10px 0 0; 
+}
+/*第一级ul*/
+.ul1{
+	padding-top:10px;
+}
+.ul1 > li > a {
+    padding: 12px 5px 12px 15px;
+    border-left: 3px solid transparent;
+    display: block;
+    color: #b8c7ce;
+    position: relative;
+     cursor: pointer;
+}
+.ul1 > li > a:hover {
+  color: white;
+  border-left: 3px solid #00ACD6;
+}
+/*打开状态下的左边红色边框和子菜单*/
+.active-flag > a {
+    border-left: 3px solid #00ACD6!important;
+}
+.active-flag > .ul2 {
+    display: block;
+}
+/*第二级ul*/
+.ul2 {
+    display: none;
+}
+.ul2 > li {
+    background: #2C3B41;
+    padding: 5px;
+}
+.ul2 > li > a {
+    color: #8aa4af;
+    padding: 5px 5px 5px 15px;
+    font-size: 14px;
+}
+.ul2 > li > a:hover {
+  color: white;
+}
+.active-a2{
+	color: white !important;
+}
+
+/*右侧样式*/
+.right{
+	height: 100%; position: relative;
+    margin-left: 240px;    top: 50px;
+}
+.content1{
+	width: 100%;background-color:#ECF0F5;padding:10px 10px 10px 0;box-sizing: border-box;
+}
+.content2{
+	width: 100%;height:100%;background-color: white;padding:20px;box-sizing: border-box;    min-height: 820px;	
+}
+.toolbar{
+	height: 30px;line-height: 30px;padding:10px 0;
+}
+.search_select{
+	line-height:30px;
+	height:30px;
+	width:150px
+}
+.search_text{
+	line-height:24px;height:24px;width:200px;padding-left:8px
+}
+/*右侧报表样式*/
+.tablediv{
+    box-sizing: border-box;
+    width:100%;
+    height:580px;
+    overflow-y: auto;
+    padding-top:10px
+}
+.sort{
+	cursor:pointer;
+	margin-left:6px;
+}
+.table{
+	border-spacing: 0;
+	/*min-height:550px;*/
+	width:100%;
+}
+th {
+	border: 1px solid #f4f4f4;
+	text-align: left;
+    padding: 8px;
+	white-space:nowrap; 
+	height:32px;
+}
+td {
+	border: 1px solid #f4f4f4;
+	text-align: left;
+    padding: 8px;
+    white-space:nowrap; 
+    height:32px;
+     /*height:32px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 210px;*/
+}
+td img{
+	heigh:28px;
+	width:28px;
+}
+td img:hover{
+	transform:scale(3,3);
+}
+td a{
+	color:#00acd6;    
+	text-decoration: underline;
+	cursor:pointer;
+}
+td div{
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width:400px;
+}
+/*新增修改删除查询按钮*/
+.addNew {
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    background: #00acd6;
+    text-align: center;
+    color: #ffffff;
+    margin-right: 2px;
+    cursor: pointer;
+}
+.addNew:hover {
+  background-color: #367fa9;
+}
+
+
+/*弹出层样式*/
+.hidden{
+  display:none;
+}
+.add_form{
+  width:80%;
+  margin:0 auto;
+  padding-top:20px;
+}
+.edit_form{
+  width:80%;
+  margin:0 auto;
+  padding-top:20px;
+}
+.dataForm{
+  padding: 5px 0;
+}
+.dataForm label{
+  width:20%;
+  height:40px;
+  line-height: 40px;
+  text-align: right;
+  padding-right: 4px;
+  display: inline-block;
+  font-weight: bolder;
+  box-sizing: border-box;
+}
+.dataForm input,select{
+  padding-left: 10px;
+  width:78%;
+  height:40px;
+  border:1px solid #cccccc;
+  box-sizing: border-box;
+}
+.dataForm input[type="radio"]{
+  width: 40px;height: 15px;
+}
+.dataForm input[type="file"]{
+  border:0px;
+  width:300px;
+  height:40px;
+}
+.dataForm a{
+  text-decoration: underline;
+  color:GREEN;
+}
+.button-div{
+  width:20%;
+  margin:0 auto;
+  height: 30px;
+  margin-top:20px;
+  margin-bottom:40px;
+}
+.buttons-left{
+  display:inline-block;
+  width:60px;
+  height:30px;
+  line-height: 30px;
+  background:#00acd6;
+  text-align: center;
+  color:#ffffff;
+  float:left;
+  cursor: pointer
+}
+.buttons-right{
+  display:inline-block;
+  width:60px;
+  height:30px;
+  line-height: 30px;
+  background:#00acd6;
+  text-align: center;
+  color:#ffffff;
+  float:right;
+  cursor: pointer
+}
+.buttons-right:hover {
+  background-color: #367fa9;
+}
+.buttons-left:hover {
+  background-color: #367fa9;
+}
+
+
+/* 分页样式*/
+.page-div{
+    height: 35px;
+    text-align: center;
+    padding-top: 10px;
+    position: relative;
+}
+.pagination {
+    display: inline-block;
+    padding:0;
+    margin:0;
+	width: 100%;
+}
+.pagination>li {
+    display: inline;
+}
+.pagination>.disabled>a, .pagination>.disabled>a:hover, .pagination>.disabled>a:focus {
+    color: #999;
+    background-color: #fff;
+    border-color: #ddd;
+    cursor: not-allowed;
+}
+.pagination>li>a{
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    line-height: 1.42857143;
+    text-decoration: none;
+    color: black;
+    background-color: #fff;
+    border: 1px solid #A7A1A1;
+    margin-left: -1px;
+	width:50px;
+}
+.pagination>.active>a,.pagination>.active>a:hover,.pagination>.active>a:focus{
+    z-index: 2;
+    color: #fff;
+    background-color: #00a1d6;
+    border-color: #00a1d6;
+    cursor: default;
+}
+
+.footer{
+	width: 100%; height: 50px;
+	background: white;
+	line-height:50px;
+}	
+

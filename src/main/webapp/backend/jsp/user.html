@@ -1,0 +1,195 @@
+
+<input type="hidden" id="modelName" name="" value="user"></input>
+<div class="content2">
+	<h3>用户信息</h3>
+	<div class="toolbar">
+		<div class="float-left">
+				<a class="addNew" onclick="initAddDialog();addDialog()">新增</a>
+				<a class="addNew" onclick="importDialog();">导入</a>
+				<a class="addNew" onclick="Export()">导出</a>
+		</div>
+		<div class="float-right" > 
+				<form id="searchFrom">
+					<select  class="search_select"" name="sex">
+						<option value="">所有性别</option>
+						<option value="0">男</option>
+						<option value="1">女</option>
+					</select>
+					<select  class="search_select"" name="status">
+						<option value="">所有状态</option>
+						<option value="1">正常</option>
+						<option value="0">禁用</option>
+					</select>
+					<select  class="search_select"" name="userType">
+						<option value="">所有用户类型</option>
+						<option value="1">邮箱注册</option>
+						<option value="2">手机注册</option>
+						<option value="3">qq互联</option>
+					</select>
+					<input id="searchText" type="text" class="search_text" name="keyword" placeholder="搜索歌词，作者，歌曲名"/>
+					<a class="addNew" onclick="toPage(1);">搜索</a>
+				</form>
+		</div>
+	</div>
+	<div class="tablediv">
+	<table id="dataTable" class="table" >
+		<thead>
+			<tr> 
+				<th id="item_num">序号</th>
+				<th id="name">用户名</th>
+				<th id="sex">性别</th>
+                <th id="phone">手机</th>
+                <th id="image">头像</th>
+                <th id="createTime">
+                	注册日期<font class="sort" name="createTimeOrder" onclick="sort(this);"  value="desc">↑</font>
+                </th>
+                <th id="status">
+                	状态 <font class="sort" name="statusOrder" onclick="sort(this);" value="">↑↓</font>
+                </th>
+                <th id="operation">操作</th>
+                <!--<th value="pkid" style="display: none">pkId</th> -->
+			</tr>
+		</thead>
+		<tbody>
+		
+		</tbody>
+	</table>
+	</div>
+	<!--分页-->
+	<div class="page-div">
+		<ul id="page" class="pagination"></ul>
+	</div>
+</div>
+<script>
+	 render=function() {
+	 	$("tbody").children("tr").each(
+        	function(index,e){
+        		var $itemNum=$(this).children("td").eq($("#item_num").index());
+        		$itemNum.text((parseInt($(".active").children().text())-1)*10+index+1);
+        		//用户类型
+        		var $userType=$(this).children("td").eq($("#userType").index());
+        		$userType.text(arg6[$userType.text()]);
+        		//用户类型
+        		var $userClass=$(this).children("td").eq($("#userClass").index());
+        		$userClass.text(arg7[$userClass.text()]);
+        		//渲染性别
+        		var $sex=$(this).children("td").eq($("#sex").index());		
+	     		$sex.text(arg2[$sex.text()]);
+        		var $image=$(this).children("td").eq($("#image").index());
+        		$image.html('<img src="'+$image.text()+'"></img>');
+        		//渲染状态
+        		var $status=$(this).children("td").eq($("#status").index());
+        		$status.html(arg5[$status.text()]);
+        		//渲染搜索关键字
+        		var keyWord=$("#searchText").val();
+        		if(keyWord!=null&&keyWord.trim()!=""){
+        		    var $name=$(this).children("td").eq($("#userName").index());
+        			$name.html($name.text().replaceAll(keyWord,'<font color="red">'+keyWord+'</font>'));
+        		}
+        	}
+        );
+     }
+	 $(function () {
+    	toPage(1);
+     });
+	 initAddDialog = function(){
+	 	//初始化对话框中的下拉框
+	 }
+	 initEditDialog = function(){
+	 }
+</script>
+
+<!--==========================datatable弹窗=====================-->
+<!--新增弹窗-->
+<div id="add_pop" class="hidden">
+    <form class="add_form">
+        <div class="dataForm">
+            <label  >用户名</label>
+  			<input type="text" name="userName"/>
+        </div>
+        <div class="dataForm">
+            <label  >密码</label>
+            <input type="text" name="password"/>
+        </div>
+        <div class="dataForm">
+            <label >邮箱</label>
+            <input type="text" name="eMail"/>
+        </div>
+        <div class="dataForm">
+            <label  >电话</label>
+            <input type="text" name="phone"/>
+        </div>
+        <div class="dataForm">
+            <label  >性别</label>
+			<input type="radio" name="sex" value="0" checked="checked" />男
+			<input type="radio" name="sex" value="1" />女
+        </div>
+        <div class="dataForm">
+            <label  >头像</label>
+ 			<input type="text" name="image"/>
+        </div>
+        <div class="dataForm">
+            <label >状态</label>
+			<input type="radio" name="status" value="0" checked="checked" />禁用
+			<input type="radio" name="status" value="1" />正常
+        </div>
+    </form>
+    <div class="button-div">
+        <a class="buttons-left" id="post" onclick="add()">新增</a>
+        <a class="buttons-right" id="cancel" onclick="cancel()">取消</a>
+    </div>
+</div>
+<!--修改弹窗-->
+<div id="edit_pop" class="hidden">
+    <form class="edit_form">
+       <input type="hidden" name="pkid"></input>
+       <div class="dataForm">
+            <label  >用户名</label>
+  			<input type="text" name="userName"/>
+        </div>
+        <div class="dataForm">
+            <label  >密码</label>
+            <input type="text" name="password"/>
+        </div>
+        <div class="dataForm">
+            <label >邮箱</label>
+            <input type="text" name="eMail"/>
+        </div>
+        <div class="dataForm">
+            <label  >电话</label>
+            <input type="text" name="phone"/>
+        </div>
+        <div class="dataForm">
+            <label  >性别</label>
+			<input type="radio" name="sex" value="0" />男
+			<input type="radio" name="sex" value="1" />女
+        </div>
+        <div class="dataForm">
+            <label  >头像</label>
+ 			<input type="text" name="image"/>
+        </div>
+        <div class="dataForm">
+            <label >状态</label>
+			<input type="radio" name="status" value="0" />禁用
+			<input type="radio" name="status" value="1" />正常
+        </div>
+    </form>
+    <div class="button-div">
+        <a class="buttons-left" id="post" onclick="edit()">修改</a>
+        <a class="buttons-right" id="cancel" onclick="cancel()">取消</a>
+    </div>
+</div>
+<!--==========================datatable弹窗=====================-->
+<!--导入弹窗-->
+<div class="hidden import_pop">
+    <form class="dataPopForm import_form">
+        <div class="dataForm">
+        	 <label ><a href="/ssm\tempfilepath\导入班级信息模板.xls">下载excel模板</a></label>
+            <input type="file" name="file"></input>
+        </div>
+    </form>
+    <div class="buttons">
+        <a href="javascript:void(0);" style="float:left" id="post" onclick="Import()">导入</a>
+        <a href="javascript:void(0);" style="float:right" id="cancel" onclick="cancel()">取消</a>
+    </div>
+</div>
